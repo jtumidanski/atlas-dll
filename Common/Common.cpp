@@ -36,7 +36,7 @@ Common::Common(BOOL bHookWinLibs, std::function<void()> pPostMutexFunc, const ch
 	// required for proper injection
 	INITWINHOOK("KERNEL32", "CreateMutexA", CreateMutexA_Original, CreateMutexA_t, WinHooks::CreateMutexA_Hook);
 
-	if (Common::GetConfig()->MaplePatcherClass || Common::GetConfig()->MapleWindowClass || Common::GetConfig()->InjectImmediately)
+	if (Common::GetConfig()->MapleWindowClass || Common::GetConfig()->InjectImmediately)
 	{
 		INITWINHOOK("USER32", "CreateWindowExA", CreateWindowExA_Original, CreateWindowExA_t, WinHooks::CreateWindowExA_Hook);
 	}
@@ -51,7 +51,7 @@ Common::Common(BOOL bHookWinLibs, std::function<void()> pPostMutexFunc, const ch
 		INITWINHOOK("KERNEL32", "OpenProcess", OpenProcess_Original, OpenProcess_t, WinHooks::OpenProcess_Hook);
 	}
 
-	if (Common::GetConfig()->HookToggleInfo.CreateProcess_Logging)
+	/*if (Common::GetConfig()->HookToggleInfo.CreateProcess_Logging)
 	{
 		INITWINHOOK("KERNEL32", "CreateProcessW", CreateProcessW_Original, CreateProcessW_t, WinHooks::CreateProcessW_Hook);
 		INITWINHOOK("KERNEL32", "CreateProcessA", CreateProcessA_Original, CreateProcessA_t, WinHooks::CreateProcessA_Hook);
@@ -59,7 +59,7 @@ Common::Common(BOOL bHookWinLibs, std::function<void()> pPostMutexFunc, const ch
 	else if (Common::GetConfig()->MapleExitWindowWebUrl && *Common::GetConfig()->MapleExitWindowWebUrl)
 	{
 		INITWINHOOK("KERNEL32", "CreateProcessA", CreateProcessA_Original, CreateProcessA_t, WinHooks::CreateProcessA_Hook);
-	}
+	}*/
 
 	if (Common::GetConfig()->HookToggleInfo.OpenMutexA_Logging || Common::GetConfig()->HookToggleInfo.OpenMutexA_Spoof)
 	{

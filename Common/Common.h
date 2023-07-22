@@ -13,7 +13,7 @@
 #include "FakeModule.h"
 
 #define MAPLE_INJECT_USE_IJL TRUE
-#define MAPLE_MULTICLIENT TRUE
+#define MAPLE_MULTICLIENT FALSE
 #define MAPLE_INSTAJECT FALSE
 
 /// <summary>
@@ -52,7 +52,7 @@ private:
 			}
 		};
 	public:
-		const char* DllName = "LEN.dll";
+		const char* DllName = "ijl15.dll";
 		const char* MapleExeName = "MapleStory.exe";
 		const char* MapleStartupArgs = " GameLaunching 127.0.0.1 8484";
 

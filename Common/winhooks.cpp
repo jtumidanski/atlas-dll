@@ -276,19 +276,6 @@ namespace WinHooks
 	{
 		Log("[CreateWindowExA] => %s - %s", lpClassName, lpWindowName);
 
-		if (Common::GetConfig()->MaplePatcherClass && strstr(lpClassName, Common::GetConfig()->MaplePatcherClass))
-		{
-			Log("Bypassing patcher window..");
-
-			if (Common::GetConfig()->InjectImmediately)
-			{
-				Common::GetInstance()->OnThemidaUnpack();
-			}
-
-			return NULL;
-		}
-		else
-		{
 			if (Common::GetConfig()->ForceWindowedOnStart
 				&& Common::GetConfig()->MapleWindowClass
 				&& strstr(lpClassName, Common::GetConfig()->MapleWindowClass))
@@ -303,7 +290,6 @@ namespace WinHooks
 			}
 
 			return CreateWindowExA_Original(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
-		}
 	}
 
 	/// <summary>

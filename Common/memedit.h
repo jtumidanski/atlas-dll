@@ -35,6 +35,11 @@ public:
 	static BOOL PatchNop(DWORD dwAddress, UINT nCount);
 	static BOOL WriteBytes(DWORD dwAddress, const char* pData, UINT nCount);
 
+	static void FillBytes(DWORD dwOriginAddress, unsigned char ucValue, int nCount);
+	static void WriteByte(DWORD dwOriginAddress, unsigned char ucValue);
+	static void WriteInt(DWORD dwOriginAddress, unsigned int dwValue);
+	static void CodeCave(void* ptrCodeCave, DWORD dwOriginAddress, int nNOPCount);
+
 	/// <summary>
 	/// Attempts to (over)write a value to the specified location in memory.
 	/// </summary>
