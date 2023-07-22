@@ -116,6 +116,35 @@ const DWORD dwCWndManRedrawInvalidatedWindows = 0x009E4547;
 const DWORD dwIWzGr2DRenderFrame = 0x00777326;
 const DWORD dwA61DF2 = 0x00A61DF2;
 
+const DWORD dw494D07 = 0x00494D07;
+
+const DWORD dwCLoginSendCheckPasswordPacket = 0x005F6952;
+const DWORD dwNukedCLoginSendCheckPasswordPacketReturn = dwCLoginSendCheckPasswordPacket + 0x30F;
+
+const DWORD dw5FDDE3 = 0x005FDDE3;
+const DWORD dw5FDF26 = 0x005FDF26;
+const DWORD dwA54B90 = 0x00A54B90;
+const DWORD dwA54BD0 = 0x00A54BD0;
+const DWORD dwA54EB0 = 0x00A54EB0;
+const DWORD dw5F6CFB = 0x005F6CFB;
+const DWORD dwA54BC0 = 0x00A54BC0;
+const DWORD dwCOutPacketConstructor = 0x006EC9CE;
+const DWORD dwZXStringGetBuffer = 0x00414617;
+const DWORD dwCOutPacketEncodeStr = 0x0046F3CF;
+const DWORD dwCOutPacketEncodeBuffer = 0x0046C00C;
+const DWORD dwCOutPacketEncode4 = 0x004065A6;
+const DWORD dwCOutPacketEncode1 = 0x00406549;
+const DWORD dwCClientSocketSendPacket = 0x0049637B;
+const DWORD ZArrayRemoveAll = 0x00428CF1;
+
+const DWORD dw494D2F = 0x00494D2F;
+const DWORD dwNuked494D2FReturn = dw494D2F;
+
+const DWORD dwCClientSocketClearSendReceiveCtx = 0x004969EE;
+const DWORD dw494857 = 0x00494857;
+
+const DWORD dwCClientSocketOnConnect = 0x00494ED1;
+
 __declspec(naked) void FixFullScreen() {
 	__asm {
 		mov eax,0
@@ -911,8 +940,6 @@ __declspec(naked) void NukedCWvsAppCallUpdate() {
 	}
 }
 
-const DWORD dw494D07 = 0x00494D07;
-const DWORD dw494D2F = 0x00494D2F;
 
 __declspec(naked) void NukedCClientSocketConnect() {
 	__asm {
@@ -943,25 +970,6 @@ __declspec(naked) void NukedCClientSocketConnect() {
 		jmp dword ptr[dwNukedCClientSocketConnectReturn]
 	}
 }
-
-const DWORD dwCLoginSendCheckPasswordPacket = 0x005F6952;
-const DWORD dwNukedCLoginSendCheckPasswordPacketReturn = dwCLoginSendCheckPasswordPacket + 0x30F;
-
-const DWORD dw5FDDE3 = 0x005FDDE3;
-const DWORD dw5FDF26 = 0x005FDF26;
-const DWORD dwA54B90 = 0x00A54B90;
-const DWORD dwA54BD0 = 0x00A54BD0;
-const DWORD dwA54EB0 = 0x00A54EB0;
-const DWORD dw5F6CFB = 0x005F6CFB;
-const DWORD dwA54BC0 = 0x00A54BC0;
-const DWORD dwCOutPacketConstructor = 0x006EC9CE;
-const DWORD dwZXStringGetBuffer = 0x00414617;
-const DWORD dwCOutPacketEncodeStr = 0x0046F3CF;
-const DWORD dwCOutPacketEncodeBuffer = 0x0046C00C;
-const DWORD dwCOutPacketEncode4 = 0x004065A6;
-const DWORD dwCOutPacketEncode1 = 0x00406549;
-const DWORD dwCClientSocketSendPacket = 0x0049637B;
-const DWORD ZArrayRemoveAll = 0x00428CF1;
 
 __declspec(naked) void NukedCLoginSendCheckPasswordPacket() {
 	__asm {
@@ -1074,6 +1082,93 @@ __declspec(naked) void NukedCLoginSendCheckPasswordPacket() {
 	}
 }
 
+__declspec(naked) void Nuked494D2F() {
+	__asm {
+			push ebp
+			mov ebp, esp
+			sub esp, 30h
+			push ebx
+			push esi
+			push edi
+			mov [ebp-30h], ecx
+			jmp label494DEF
+
+		label494DEF:
+			mov ecx, [ebp-30h]
+			call dwCClientSocketClearSendReceiveCtx
+			mov ecx, [ebp-30h]
+			add ecx, 8
+			call dw494857
+			mov eax, [ebp-30h]
+			add eax, 8
+			mov [ebp-24h], eax
+			push 0
+			push 1
+			push 2
+			call dword ptr ds : [0x00AF036C]
+
+			mov ecx, [ebp-24h]
+			mov [ecx], eax
+			mov eax, [ebp-24h]
+			cmp dword ptr [eax], 0FFFFFFFFh
+			jnz short label494E47
+			call dword ptr ds : [0x00AF0364]
+			mov [ebp-20h], eax
+			mov eax, [ebp-20h]
+			mov [ebp-1Ch], eax
+			mov eax, [ebp-1Ch]
+			mov [ebp-18h], eax
+			push 0B44EE0h
+			lea eax, [ebp-18h]
+			push eax
+			call dwCxxThrowException
+
+		label494E47:
+			call dword ptr ds : [0x00BF060C]
+			add eax, 1388h
+			mov ecx, [ebp - 30h]
+			mov[ecx + 38h], eax
+			mov eax, [ebp - 30h]
+			mov eax, [eax + 8]
+			mov[ebp - 28h], eax
+			push 33h
+			push 401h
+			mov eax, [ebp - 30h]
+			push dword ptr[eax + 4]
+			push dword ptr[ebp - 28h]
+			call dword ptr ds : [0x00BF062C]
+			cmp eax, 0FFFFFFFFh
+			jz short label494EA5
+			mov eax, [ebp-30h]
+			mov eax, [eax+8]
+			mov [ebp-2Ch], eax
+			push 10h
+			push dword ptr [ebp+8]
+			push dword ptr [ebp-2Ch]
+			call dword ptr ds : [0x00BF064C]
+			cmp eax, 0FFFFFFFFh
+			jnz short label494EA5
+			call dword ptr ds : [0x00BF0640]
+			cmp eax, 2733h
+			jz short label494EAF
+
+		label494EA5:
+			push 0
+			mov ecx, [ebp-30h]
+			call dwCClientSocketOnConnect
+
+		label494EAF:
+			jmp label494ECA
+
+		label494ECA:
+			pop edi
+			pop esi
+			pop ebx
+			leave
+			retn 4
+	}
+}
+
 // executed after the client is unpacked
 VOID MainFunc()
 {
@@ -1095,6 +1190,7 @@ VOID MainFunc()
 	MemEdit::CodeCave(NukedCWvsAppCallUpdate, dwCWvsAppCallUpdate, 5);
 	MemEdit::CodeCave(NukedCClientSocketConnect, dwCClientSocketConnect, 5);
 	MemEdit::CodeCave(NukedCLoginSendCheckPasswordPacket, dwCLoginSendCheckPasswordPacket, 5);
+	MemEdit::CodeCave(Nuked494D2F, dw494D2F, 6);
 	return;
 }
 
